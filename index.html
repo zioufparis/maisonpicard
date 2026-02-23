@@ -314,7 +314,7 @@
     }
     .tarifs-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 0; max-width: 960px; margin: 0 auto;
+      gap: 0; max-width: 1100px; margin: 0 auto;
       border: 1px solid var(--border);
     }
     .tarif-card {
@@ -351,13 +351,20 @@
       list-style: none; text-align: left; margin-bottom: 2rem;
     }
     .tarif-features li {
-      font-size: 0.85rem; color: rgba(247,243,237,0.6);
-      padding: 0.6rem 0;
-      border-bottom: 1px solid rgba(201,169,110,0.1);
+      font-size: 0.82rem; color: rgba(247,243,237,0.6);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(201,169,110,0.08);
       display: flex; align-items: center; gap: 0.8rem;
     }
     .tarif-features li::before {
-      content: '✓'; color: var(--gold); flex-shrink: 0;
+      content: '✓'; color: var(--gold); flex-shrink: 0; font-size: 0.75rem;
+    }
+    .tarif-features li.off {
+      color: rgba(247,243,237,0.22);
+      text-decoration: line-through;
+    }
+    .tarif-features li.off::before {
+      content: '✕'; color: rgba(247,243,237,0.2);
     }
     .tarif-btn {
       display: block; padding: 0.8rem 1.5rem;
@@ -652,28 +659,48 @@
         <a href="#contact" class="tarif-btn">Demander un devis</a>
       </div>
       <div class="tarif-card featured">
-        <div class="tarif-name">Confort</div>
-        <div class="tarif-price">À partir de 180€</div>
-        <div class="tarif-unit">/ intervention demi-journée</div>
+        <div class="tarif-name">Smoking</div>
+        <div class="tarif-price">20%</div>
+        <div class="tarif-unit">/ mois · vous payez ce que vous consommez</div>
         <ul class="tarif-features">
-          <li>Ménage complet</li>
-          <li>Repassage inclus</li>
-          <li>Linge de maison</li>
-          <li>Produits fournis</li>
-          <li>Rapport de passage</li>
+          <li>Création complète de vos annonces</li>
+          <li>Livret d'accueil vidéo</li>
+          <li>Page web personnalisée / Services +</li>
+          <li>Gestion du ménage</li>
+          <li>Photos professionnelles</li>
+          <li>Arrivée autonome</li>
+          <li>Dépannage et petit entretien</li>
+          <li>Assistance partenaire 7j/7</li>
+          <li>Échanges avec les voyageurs 24h/24</li>
+          <li class="off">Gestion du linge de maison</li>
+          <li class="off">Fourniture du linge de maison</li>
+          <li class="off">Fourniture des produits d'accueil</li>
+          <li class="off">Présence physique</li>
+          <li class="off">Home Staging</li>
+          <li class="off">Mise en classement du bien</li>
         </ul>
         <a href="#contact" class="tarif-btn">Demander un devis</a>
       </div>
       <div class="tarif-card">
-        <div class="tarif-name">Premium</div>
-        <div class="tarif-price">Sur devis</div>
-        <div class="tarif-unit">formule personnalisée</div>
+        <div class="tarif-name">Smart</div>
+        <div class="tarif-price">25%</div>
+        <div class="tarif-unit">/ mois · pas de tracas, tout est inclus !</div>
         <ul class="tarif-features">
-          <li>Conciergerie dédiée</li>
-          <li>Gestion locative complète</li>
-          <li>Accueil voyageurs</li>
-          <li>Services sur mesure</li>
-          <li>Priorité d'intervention</li>
+          <li>Création complète de vos annonces</li>
+          <li>Livret d'accueil vidéo</li>
+          <li>Page web personnalisée / Services +</li>
+          <li>Gestion du ménage</li>
+          <li>Photos professionnelles</li>
+          <li>Arrivée autonome</li>
+          <li>Dépannage et petit entretien</li>
+          <li>Assistance partenaire 7j/7</li>
+          <li>Échanges avec les voyageurs 24h/24</li>
+          <li>Gestion du linge de maison</li>
+          <li>Fourniture du linge de maison</li>
+          <li>Fourniture des produits d'accueil</li>
+          <li>Présence physique</li>
+          <li>Home Staging</li>
+          <li>Mise en classement du bien</li>
         </ul>
         <a href="#contact" class="tarif-btn">Nous contacter</a>
       </div>
@@ -700,7 +727,7 @@
         </div>
         <div class="contact-detail">
           <div class="contact-detail-icon">✉️</div>
-          <span>contact@maisonpicard.fr</span>
+          <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1675797862777562567b777f657978667f75776472387064">[email&#160;protected]</a></span>
         </div>
         <div class="contact-detail">
           <div class="contact-detail-icon">🕐</div>
@@ -762,7 +789,7 @@
     </ul>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // Reveal on scroll
     const reveals = document.querySelectorAll('[data-reveal]');
     const observer = new IntersectionObserver((entries) => {
@@ -773,14 +800,4 @@
         }
       });
     }, { threshold: 0.15 });
-    reveals.forEach(el => observer.observe(el));
-
-    // Form mock submit
-    function handleSubmit(e) {
-      e.preventDefault();
-      document.getElementById('form-success').style.display = 'block';
-      e.target.reset();
-    }
-  </script>
-</body>
-</html>
+    reveals.forEach(el => 
