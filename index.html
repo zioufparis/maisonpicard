@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maison Picard — Conciergerie Amiens</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f7f3ed;
+      --dark: #1a1610;
+      --gold: #c9a96e;
+      --gold-light: #e8d5b0;
+      --muted: #7a6e60;
+      --border: rgba(201,169,110,0.25);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--dark);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.5rem 3rem;
+      background: rgba(247,243,237,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 600; letter-spacing: 0.05em;
+      color: var(--dark); text-decoration: none;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--dark); color: var(--cream) !important;
+      padding: 0.6rem 1.4rem;
+      border-radius: 0;
+    }
+    .nav-cta:hover { background: var(--gold); color: var(--dark) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      position: relative; overflow: hidden;
+    }
+    .hero-left {
+      background: var(--dark);
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 4rem 6rem 6rem;
+      position: relative;
+    }
+    .hero-left::after {
+      content: '';
+      position: absolute; right: -1px; top: 0; bottom: 0; width: 1px;
+      background: var(--gold);
+    }
+    .hero-tag {
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 2rem;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5vw, 5rem);
+      font-weight: 300; line-height: 1.05;
+      color: var(--cream);
+      margin-bottom: 2rem;
+    }
+    .hero-title em { color: var(--gold); font-style: italic; }
+    .hero-desc {
+      color: rgba(247,243,237,0.6);
+      line-height: 1.8; max-width: 380px;
+      margin-bottom: 3rem; font-size: 0.95rem;
+    }
+    .hero-btn {
+      display: inline-flex; align-items: center; gap: 1rem;
+      background: var(--gold); color: var(--dark);
+      padding: 1rem 2rem; text-decoration: none;
+      font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+      font-weight: 500; transition: all 0.3s;
+      align-self: flex-start;
+    }
+    .hero-btn:hover { background: var(--cream); }
+    .hero-btn .arrow { font-size: 1rem; }
+
+    .hero-right {
+      position: relative; overflow: hidden;
+      background: #2a2218;
+    }
+    .hero-img {
+      width: 100%; height: 100%; object-fit: cover; opacity: 0.7;
+      display: block;
+    }
+    .hero-img-fallback {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #2a2218 0%, #3d3020 40%, #1a1610 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-pattern {
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 30% 50%, rgba(201,169,110,0.15) 0%, transparent 60%),
+        repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(201,169,110,0.03) 40px, rgba(201,169,110,0.03) 41px);
+    }
+    .hero-badge {
+      position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+      text-align: center;
+    }
+    .hero-badge-inner {
+      width: 120px; height: 120px; border: 1px solid var(--gold);
+      border-radius: 50%; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: rgba(26,22,16,0.8); backdrop-filter: blur(8px);
+    }
+    .hero-badge-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; color: var(--gold); line-height: 1;
+    }
+    .hero-badge-text {
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(247,243,237,0.7); margin-top: 0.3rem;
+    }
+    .hero-scroll {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    }
+    .scroll-line {
+      width: 1px; height: 60px; background: var(--gold);
+      margin: 0 auto;
+      animation: scrollDown 2s ease-in-out infinite;
+    }
+    @keyframes scrollDown {
+      0% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+      51% { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 7rem 6rem; }
+    .section-tag {
+      font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem; display: block;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 3.5vw, 3.5rem);
+      font-weight: 300; line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+    .divider {
+      width: 60px; height: 1px; background: var(--gold);
+      margin-bottom: 2rem;
+    }
+
+    /* ── SERVICES ── */
+    #services {
+      background: var(--dark);
+      color: var(--cream);
+    }
+    #services .section-title { color: var(--cream); }
+    .services-intro {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: end; margin-bottom: 5rem;
+    }
+    .services-desc {
+      color: rgba(247,243,237,0.6);
+      line-height: 1.9; font-size: 0.95rem;
+    }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; border: 1px solid var(--border);
+    }
+    .service-card {
+      padding: 2.5rem; border-right: 1px solid var(--border);
+      transition: background 0.4s;
+      position: relative; overflow: hidden;
+    }
+    .service-card:last-child { border-right: none; }
+    .service-card:hover { background: rgba(201,169,110,0.07); }
+    .service-card:hover .service-num { color: var(--gold); }
+    .service-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem; font-weight: 300;
+      color: rgba(201,169,110,0.2);
+      display: block; margin-bottom: 1.5rem;
+      transition: color 0.4s;
+    }
+    .service-icon {
+      font-size: 1.8rem; margin-bottom: 1.2rem; display: block;
+    }
+    .service-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; color: var(--cream);
+      margin-bottom: 0.8rem; font-weight: 400;
+    }
+    .service-text {
+      color: rgba(247,243,237,0.5);
+      font-size: 0.85rem; line-height: 1.7;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; padding: 0; align-items: stretch;
+    }
+    .about-visual {
+      background: var(--dark);
+      padding: 7rem 4rem;
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative;
+    }
+    .about-visual::before {
+      content: '"';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18rem; color: rgba(201,169,110,0.08);
+      position: absolute; top: -2rem; left: 2rem;
+      line-height: 1;
+    }
+    .about-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-style: italic; font-weight: 300;
+      color: var(--cream); line-height: 1.5;
+      position: relative; z-index: 1;
+      margin-bottom: 2rem;
+    }
+    .about-author {
+      font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold);
+    }
+    .about-content { padding: 7rem 5rem; }
+    .about-content .section-title { margin-bottom: 0.5rem; }
+    .about-text {
+      color: var(--muted); line-height: 1.9; font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2rem; margin-top: 3rem;
+    }
+    .stat-box {
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+    }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem; color: var(--gold); line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted); margin-top: 0.4rem;
+    }
+
+    /* ── PROCESS ── */
+    #process { background: #f0ebe3; }
+    .process-header { text-align: center; margin-bottom: 5rem; }
+    .process-header .divider { margin: 0 auto 2rem; }
+    .process-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute; top: 2.5rem; left: 12.5%; right: 12.5%;
+      height: 1px; background: var(--gold-light);
+    }
+    .step {
+      text-align: center; padding: 0 2rem;
+    }
+    .step-circle {
+      width: 50px; height: 50px; border-radius: 50%;
+      border: 1px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; color: var(--gold);
+      background: #f0ebe3; position: relative; z-index: 1;
+    }
+    .step-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; margin-bottom: 0.8rem;
+    }
+    .step-text {
+      font-size: 0.85rem; color: var(--muted); line-height: 1.7;
+    }
+
+    /* ── TARIFS ── */
+    #tarifs {
+      background: var(--dark); color: var(--cream);
+      text-align: center;
+    }
+    #tarifs .section-title { color: var(--cream); }
+    #tarifs .divider { margin: 0 auto 1rem; }
+    .tarifs-desc {
+      color: rgba(247,243,237,0.5); margin-bottom: 4rem;
+      font-size: 0.9rem;
+    }
+    .tarifs-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; max-width: 960px; margin: 0 auto;
+      border: 1px solid var(--border);
+    }
+    .tarif-card {
+      padding: 3rem 2rem;
+      border-right: 1px solid var(--border);
+      transition: background 0.4s;
+      position: relative;
+    }
+    .tarif-card.featured {
+      background: rgba(201,169,110,0.1);
+    }
+    .tarif-card.featured::before {
+      content: 'Populaire';
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      background: var(--gold); color: var(--dark);
+      font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.3rem 1rem; font-weight: 500;
+    }
+    .tarif-card:last-child { border-right: none; }
+    .tarif-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; color: var(--cream); margin-bottom: 1rem;
+    }
+    .tarif-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem; color: var(--gold); line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .tarif-unit {
+      font-size: 0.75rem; color: rgba(247,243,237,0.4);
+      letter-spacing: 0.1em; margin-bottom: 2rem;
+    }
+    .tarif-features {
+      list-style: none; text-align: left; margin-bottom: 2rem;
+    }
+    .tarif-features li {
+      font-size: 0.85rem; color: rgba(247,243,237,0.6);
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(201,169,110,0.1);
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .tarif-features li::before {
+      content: '✓'; color: var(--gold); flex-shrink: 0;
+    }
+    .tarif-btn {
+      display: block; padding: 0.8rem 1.5rem;
+      border: 1px solid var(--gold); color: var(--gold);
+      text-decoration: none;
+      font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+      transition: all 0.3s;
+    }
+    .tarif-btn:hover, .tarif-card.featured .tarif-btn {
+      background: var(--gold); color: var(--dark);
+    }
+
+    /* ── CONTACT ── */
+    #contact { padding: 7rem 6rem; }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 6rem; align-items: start;
+    }
+    .contact-info h2 { margin-bottom: 0.5rem; }
+    .contact-text {
+      color: var(--muted); line-height: 1.9; font-size: 0.95rem;
+      margin-bottom: 3rem;
+    }
+    .contact-detail {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.2rem; color: var(--dark); font-size: 0.9rem;
+    }
+    .contact-detail-icon {
+      width: 36px; height: 36px; border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-label {
+      font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .form-input, .form-select, .form-textarea {
+      background: transparent; border: none; border-bottom: 1px solid var(--border);
+      padding: 0.8rem 0; font-family: 'Jost', sans-serif;
+      font-size: 0.9rem; color: var(--dark); outline: none;
+      transition: border-color 0.3s; width: 100%;
+      font-weight: 300;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-bottom-color: var(--gold);
+    }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .form-submit {
+      background: var(--dark); color: var(--cream);
+      border: none; padding: 1rem 2.5rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.3s; align-self: flex-start; font-weight: 400;
+    }
+    .form-submit:hover { background: var(--gold); color: var(--dark); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark); color: rgba(247,243,237,0.4);
+      padding: 3rem 6rem;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem; letter-spacing: 0.05em;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; color: var(--cream);
+    }
+    .footer-logo span { color: var(--gold); }
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a { color: rgba(247,243,237,0.4); text-decoration: none; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ── FADE IN ── */
+    [data-reveal] {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    [data-reveal].visible {
+      opacity: 1; transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { height: 300px; }
+      .hero-left { padding: 7rem 2rem 4rem; }
+      section { padding: 5rem 2rem; }
+      .services-intro, #about { grid-template-columns: 1fr; }
+      .services-grid, .tarifs-grid { grid-template-columns: 1fr; }
+      .service-card { border-right: none; border-bottom: 1px solid var(--border); }
+      .tarif-card { border-right: none; border-bottom: 1px solid var(--border); }
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 3rem; }
+      .process-steps::before { display: none; }
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+      #about { padding: 0; }
+      .about-content, .about-visual { padding: 4rem 2rem; }
+      #tarifs { padding: 5rem 2rem; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      #contact { padding: 5rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">Maison <span>Picard</span></a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#process">Processus</a></li>
+      <li><a href="#tarifs">Tarifs</a></li>
+      <li><a href="#contact" class="nav-cta">Nous contacter</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-left">
+      <span class="hero-tag">Conciergerie & Housekeeping — Amiens</span>
+      <h1 class="hero-title">
+        L'art de recevoir,<br>
+        <em>réinventé.</em>
+      </h1>
+      <p class="hero-desc">
+        Votre propriété mérite une attention exceptionnelle. Nous prenons soin de votre intérieur avec rigueur, discrétion et passion — pour que vous retrouviez toujours un chez-vous parfait.
+      </p>
+      <a href="#contact" class="hero-btn">
+        Prendre rendez-vous <span class="arrow">→</span>
+      </a>
+    </div>
+    <div class="hero-right">
+      <div class="hero-pattern"></div>
+      <div class="hero-badge">
+        <div class="hero-badge-inner">
+          <span class="hero-badge-num">5★</span>
+          <span class="hero-badge-text">Service<br>Premium</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="services-intro">
+      <div data-reveal>
+        <span class="section-tag">Nos expertises</span>
+        <h2 class="section-title">Des services pensés<br>pour votre confort</h2>
+        <div class="divider"></div>
+      </div>
+      <p class="services-desc" data-reveal>
+        Chaque prestation est réalisée avec des produits de qualité professionnelle, par des équipes formées et de confiance. De la résidence principale au logement Airbnb, nous adaptons chaque intervention à vos besoins.
+      </p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card" data-reveal>
+        <span class="service-num">01</span>
+        <span class="service-icon">🏠</span>
+        <div class="service-name">Ménage régulier</div>
+        <p class="service-text">Entretien hebdomadaire ou bi-mensuel de votre domicile. Dépoussiérage, sols, sanitaires, cuisine — rien n'est laissé au hasard.</p>
+      </div>
+      <div class="service-card" data-reveal>
+        <span class="service-num">02</span>
+        <span class="service-icon">✨</span>
+        <div class="service-name">Nettoyage approfondi</div>
+        <p class="service-text">Grand ménage de printemps, remise en état après travaux, ou préparation avant une vente. Une propreté absolue, pièce par pièce.</p>
+      </div>
+      <div class="service-card" data-reveal>
+        <span class="service-num">03</span>
+        <span class="service-icon">🛏</span>
+        <div class="service-name">Gestion locative</div>
+        <p class="service-text">Préparation entre deux locataires, changement de linge, accueil des voyageurs et inspection finale pour vos locations courte durée.</p>
+      </div>
+      <div class="service-card" data-reveal>
+        <span class="service-num">04</span>
+        <span class="service-icon">👔</span>
+        <div class="service-name">Repassage & linge</div>
+        <p class="service-text">Prise en charge complète du repassage et de l'entretien du linge de maison. Chemises, vêtements délicats, draps — un soin minutieux.</p>
+      </div>
+      <div class="service-card" data-reveal>
+        <span class="service-num">05</span>
+        <span class="service-icon">🌿</span>
+        <div class="service-name">Espaces extérieurs</div>
+        <p class="service-text">Nettoyage de terrasses, balcons et parties communes. Nous veillons aussi à l'entretien courant de vos espaces verts.</p>
+      </div>
+      <div class="service-card" data-reveal>
+        <span class="service-num">06</span>
+        <span class="service-icon">🔑</span>
+        <div class="service-name">Conciergerie sur mesure</div>
+        <p class="service-text">Réception de colis, coordination d'artisans, petites courses — votre vie simplifiée grâce à une assistante de confiance dédiée.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <div id="about">
+    <div class="about-visual">
+      <blockquote class="about-quote">
+        "Un intérieur soigné, c'est l'assurance d'une vie plus sereine."
+      </blockquote>
+      <span class="about-author">— Sophie Duhamel, Fondatrice</span>
+    </div>
+    <div class="about-content">
+      <span class="section-tag">Notre histoire</span>
+      <h2 class="section-title">Née à Amiens,<br>pour les Amiénois</h2>
+      <div class="divider"></div>
+      <p class="about-text">
+        Fondée en 2019 par Sophie Duhamel, Maison Picard est une conciergerie locale, indépendante et engagée. Nous connaissons Amiens comme notre poche — ses quartiers, ses habitants, leurs attentes.
+      </p>
+      <p class="about-text">
+        Notre équipe est composée de professionnels formés, assurés et sélectionnés avec exigence. Chaque intervenant partage nos valeurs : ponctualité, discrétion, et excellence dans les détails.
+      </p>
+      <div class="about-stats">
+        <div class="stat-box" data-reveal>
+          <div class="stat-num">320+</div>
+          <div class="stat-label">Clients satisfaits</div>
+        </div>
+        <div class="stat-box" data-reveal>
+          <div class="stat-num">5 ans</div>
+          <div class="stat-label">D'expérience locale</div>
+        </div>
+        <div class="stat-box" data-reveal>
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Assurés & vérifiés</div>
+        </div>
+        <div class="stat-box" data-reveal>
+          <div class="stat-num">4.9/5</div>
+          <div class="stat-label">Note moyenne</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="process-header">
+      <span class="section-tag">Comment ça marche</span>
+      <h2 class="section-title">Simple, rapide,<br>sans mauvaise surprise</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="process-steps">
+      <div class="step" data-reveal>
+        <div class="step-circle">1</div>
+        <div class="step-title">Demande en ligne</div>
+        <p class="step-text">Remplissez notre formulaire de contact en 2 minutes avec vos besoins et disponibilités.</p>
+      </div>
+      <div class="step" data-reveal>
+        <div class="step-circle">2</div>
+        <div class="step-title">Devis gratuit</div>
+        <p class="step-text">Nous vous rappelons sous 24h et établissons un devis personnalisé, sans engagement.</p>
+      </div>
+      <div class="step" data-reveal>
+        <div class="step-circle">3</div>
+        <div class="step-title">Premier passage</div>
+        <p class="step-text">Notre équipe intervient à l'heure convenue, avec son propre matériel professionnel.</p>
+      </div>
+      <div class="step" data-reveal>
+        <div class="step-circle">4</div>
+        <div class="step-title">Suivi & satisfaction</div>
+        <p class="step-text">Nous recueillons vos retours et adaptons notre service pour une satisfaction durable.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TARIFS -->
+  <section id="tarifs">
+    <span class="section-tag">Nos formules</span>
+    <h2 class="section-title">Des tarifs clairs &amp; transparents</h2>
+    <div class="divider" style="margin: 0 auto 1rem;"></div>
+    <p class="tarifs-desc">Tous nos tarifs sont TTC. Déplacement inclus dans Amiens et sa proche banlieue.</p>
+    <div class="tarifs-grid">
+      <div class="tarif-card">
+        <div class="tarif-name">Essentiel</div>
+        <div class="tarif-price">À partir de 25€</div>
+        <div class="tarif-unit">/ heure</div>
+        <ul class="tarif-features">
+          <li>Ménage courant</li>
+          <li>Cuisine &amp; sanitaires</li>
+          <li>Sols &amp; surfaces</li>
+          <li>Déplacement inclus</li>
+        </ul>
+        <a href="#contact" class="tarif-btn">Demander un devis</a>
+      </div>
+      <div class="tarif-card featured">
+        <div class="tarif-name">Confort</div>
+        <div class="tarif-price">À partir de 180€</div>
+        <div class="tarif-unit">/ intervention demi-journée</div>
+        <ul class="tarif-features">
+          <li>Ménage complet</li>
+          <li>Repassage inclus</li>
+          <li>Linge de maison</li>
+          <li>Produits fournis</li>
+          <li>Rapport de passage</li>
+        </ul>
+        <a href="#contact" class="tarif-btn">Demander un devis</a>
+      </div>
+      <div class="tarif-card">
+        <div class="tarif-name">Premium</div>
+        <div class="tarif-price">Sur devis</div>
+        <div class="tarif-unit">formule personnalisée</div>
+        <ul class="tarif-features">
+          <li>Conciergerie dédiée</li>
+          <li>Gestion locative complète</li>
+          <li>Accueil voyageurs</li>
+          <li>Services sur mesure</li>
+          <li>Priorité d'intervention</li>
+        </ul>
+        <a href="#contact" class="tarif-btn">Nous contacter</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <span class="section-tag">Nous écrire</span>
+        <h2 class="section-title">Parlons de<br>votre projet</h2>
+        <div class="divider"></div>
+        <p class="contact-text">
+          Vous souhaitez un devis, une information, ou simplement échanger ? Notre équipe répond dans les 24 heures ouvrées.
+        </p>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📍</div>
+          <span>Amiens &amp; agglomération (Somme)</span>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📞</div>
+          <span>03 22 XX XX XX</span>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">✉️</div>
+          <span>contact@maisonpicard.fr</span>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🕐</div>
+          <span>Lun–Ven 8h–19h · Sam 9h–17h</span>
+        </div>
+      </div>
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Prénom</label>
+            <input class="form-input" type="text" placeholder="Marie" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nom</label>
+            <input class="form-input" type="text" placeholder="Dupont" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="form-input" type="email" placeholder="marie@email.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Téléphone</label>
+            <input class="form-input" type="tel" placeholder="06 XX XX XX XX">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Service souhaité</label>
+          <select class="form-select">
+            <option value="">Sélectionner...</option>
+            <option>Ménage régulier</option>
+            <option>Nettoyage approfondi</option>
+            <option>Gestion locative</option>
+            <option>Repassage &amp; linge</option>
+            <option>Conciergerie sur mesure</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Votre message</label>
+          <textarea class="form-textarea" placeholder="Décrivez votre besoin, la superficie, la fréquence souhaitée..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Envoyer ma demande →</button>
+        <div id="form-success" style="display:none; color:#c9a96e; font-size:0.85rem; margin-top:0.5rem;">
+          ✓ Message envoyé ! Nous vous répondrons sous 24h.
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Maison <span>Picard</span></div>
+    <span>© 2025 Maison Picard — Conciergerie Amiens</span>
+    <ul class="footer-links">
+      <li><a href="#">Mentions légales</a></li>
+      <li><a href="#">CGV</a></li>
+      <li><a href="#">Confidentialité</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('[data-reveal]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Form mock submit
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('form-success').style.display = 'block';
+      e.target.reset();
+    }
+  </script>
+</body>
+</html>
